@@ -1,0 +1,135 @@
+# Данный workflow генерирует документацию и публикует её на сайте.
+# Про токен DVIGLO_SITE_TOKEN читайте тут: https://dviglo.github.io/MarkdownDocs/Git/GitHub%20Actions.md.html
+
+# Отображаемое имя workflow
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#name
+name: Генерация документации
+
+on:
+  # Запускается, если в ветке master были изменены заголовочные файлы движка или файлы документации
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push
+  # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths
+  push:
+    branches:
+    - master
+    paths:
+    - Source/Urho3D/**.h
+    - Docs/**
+
+  # Также можно запустить вручную
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#manual-events
+  workflow_dispatch:
+
+jobs:
+  # Идентификатор job
+  # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_id
+  Dokumentaciya:
+    # Будет запущен на виртуальной машине с последней версией Ubuntu
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
+
+    # Отображаемое имя job 
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idname
+    name: Генерация документации
+
+    # Последовательность задач
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
+    steps:
+
+    - name: Устанавливаем софт # Отображаемое имя step
+      run: |
+        # Приложение Doxygen генерирует документацию
+        sudo apt-get install -y doxygen
+
+        # Для генерации ScriptAPI.dox и AngelScriptAPI.h нужно скомпилировать ScriptCompiler, а значит и движок.
+        # Поэтому устанавливаем библиотеки, необходимые для компиляции движка
+        sudo apt-get install freeglut3-dev
+
+      # Временная метка добавляется к ключу кэша, чтобы при каждом запуске скрипта ключ отличался и кэш сохранялся заново
+    - name: Генерируем временную метку
+      # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable
+      run: echo "TIMESTAMP=$(/bin/date -u "+%Y_%m_%d_%H_%M_%S")" >> $GITHUB_ENV
+
+      # Используем кэш, так как без него компиляция движка каждый раз будет производиться с нуля, что очень долго
+    - name: Восстанавливаем данные из кэша
+      uses: actions/cache@v2 # Исходник скрипта можно посмотреть тут: https://github.com/actions/cache
+      with:
+        path: | # Папки, которые будут кэшироваться
+          DvigloRepository
+          DvigloBuild
+          SiteRepository
+        restore-keys: doc_cache_key_ # Используем сохранённый кэш, если есть
+        key: doc_cache_key_${{ env.TIMESTAMP }} # Новый ключ для кэша
+
+    - name: Скачиваем репозиторий движка
+
+      # Дефолтная командная оболочка моментально прекращает работу, если при выполнении любой команды возникла ошибка.
+      # Нам же нужна возможность обработки ошибок
+      # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+      shell: bash {0}
+
+      run: |
+        git config --global user.email "dviglo[bot]@users.noreply.github.com"
+        git config --global user.name "Dviglo[bot]"
+
+        if [[ -d DvigloRepository ]] # Если папка DvigloRepository уже есть
+        then
+          cd DvigloRepository
+          git pull # Обновляем репозиторий
+          ret=$? # Сохраняем код возврата предыдущей команды
+          cd ..
+
+          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (коммиты в репозитории были склеены)
+          then
+            echo "========== Не удалось обновить репозиторий, перезакачиваем целиком"
+            rm -r DvigloRepository # Удаляем папку
+            rm -r DvigloBuild
+            git clone https://github.com/Dviglo/Dviglo DvigloRepository # Качаем репозиторий
+          fi
+        else
+          # Качаем репозиторий
+          git clone https://github.com/Dviglo/Dviglo DvigloRepository
+        fi
+
+    - name: Генерируем документацию
+      run: |
+        mkdir -p DvigloBuild # Создаём папку, если не существует
+        cmake -B DvigloBuild DvigloRepository # Генерируем проекты движка
+        cmake --build DvigloBuild --target doc # Компилируем проект doc
+
+    - name: Публикуем документацию
+
+      shell: bash {0}
+
+      run: |
+        if [[ -d SiteRepository ]] # Если папка SiteRepository уже есть
+        then
+          cd SiteRepository
+          git pull # Обновляем репозиторий
+          ret=$? # Сохраняем код возврата предыдущей команды
+          cd ..
+
+          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (коммиты в репозитории были склеены)
+          then
+            echo "========== Не удалось обновить репозиторий, перезакачиваем целиком"
+            rm -r SiteRepository # Удаляем папку
+            git clone "https://${{ secrets.DVIGLO_SITE_TOKEN }}@github.com/Dviglo/dviglo.github.io" SiteRepository # Качаем репозиторий
+          fi
+        else
+          git clone "https://${{ secrets.DVIGLO_SITE_TOKEN }}@github.com/Dviglo/dviglo.github.io" SiteRepository # Качаем репозиторий
+        fi
+
+        # Скачиваем репозиторий конвертора в папку ConvRepo (нам нужен только файл Addon.js)
+        git clone https://github.com/Dviglo/md2html ConvRepo
+
+        rm -rf SiteRepository/Documentation # Удаляем директорию, если существует
+        mkdir SiteRepository/Documentation
+        cp -a DvigloBuild/Docs/html/. SiteRepository/Documentation # Копируем содержимое папки
+
+        # Копируем аддон, создающий боковую панель сайта
+        cp -R DvigloRepository/Docs/Addon.js SiteRepository/Documentation
+
+        cd SiteRepository
+        git add -A
+        git diff-index --quiet HEAD || git commit -m "Обновление документации" # Создаём коммит, если есть изменения
+        git push origin master
