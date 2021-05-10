@@ -11991,6 +11991,9 @@ template <class T> void RegisterMembers_Time(asIScriptEngine* engine, const char
     engine->RegisterObjectMethod(className, "float GetTimeStep() const", AS_METHODPR(T, GetTimeStep, () const, float), AS_CALL_THISCALL);
     engine->RegisterObjectMethod(className, "float get_timeStep() const", AS_METHODPR(T, GetTimeStep, () const, float), AS_CALL_THISCALL);
 
+    // void Time::PostBeginFrame(float timeStep)
+    engine->RegisterObjectMethod(className, "void PostBeginFrame(float)", AS_METHODPR(T, PostBeginFrame, (float), void), AS_CALL_THISCALL);
+
     // void Time::SetTimerPeriod(unsigned mSec)
     engine->RegisterObjectMethod(className, "void SetTimerPeriod(uint)", AS_METHODPR(T, SetTimerPeriod, (unsigned), void), AS_CALL_THISCALL);
 

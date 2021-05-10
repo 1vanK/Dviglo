@@ -87,6 +87,10 @@ public:
 
     /// Begin new frame, with (last) frame duration in seconds and send frame start event.
     void BeginFrame(float timeStep);
+
+    /// Просто вызывает событие E_POSTBEGINFRAME.
+    void PostBeginFrame(float timeStep);
+
     /// End frame. Increment total time and send frame end event.
     void EndFrame();
     /// Set the low-resolution timer period in milliseconds. 0 resets to the default period.

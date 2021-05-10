@@ -495,6 +495,7 @@ void Engine::RunFrame()
 #endif
 
     time->BeginFrame(timeStep_);
+    time->PostBeginFrame(timeStep_);
 
     // If pause when minimized -mode is in use, stop updates and audio as necessary
     if (pauseMinimized_ && input->IsMinimized())

@@ -27,10 +27,16 @@
 namespace Urho3D
 {
 
-/// Frame begin event.
+/// Первое событие на каждом шаге игрового цикла.
 URHO3D_EVENT(E_BEGINFRAME, BeginFrame)
 {
     URHO3D_PARAM(P_FRAMENUMBER, FrameNumber);      // unsigned
+    URHO3D_PARAM(P_TIMESTEP, TimeStep);            // float
+}
+
+/// Второе событие на каждом шаге игрового цикла. Предназначено для смены текущей сцены и состояния игры.
+URHO3D_EVENT(E_POSTBEGINFRAME, PostBeginFrame)
+{
     URHO3D_PARAM(P_TIMESTEP, TimeStep);            // float
 }
 

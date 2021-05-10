@@ -129,6 +129,19 @@ void Time::BeginFrame(float timeStep)
     }
 }
 
+void Time::PostBeginFrame(float timeStep)
+{
+    {
+        URHO3D_PROFILE(PostBeginFrame);
+
+        using namespace PostBeginFrame;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_TIMESTEP] = timeStep_;
+        SendEvent(E_POSTBEGINFRAME, eventData);
+    }
+}
+
 void Time::EndFrame()
 {
     {
