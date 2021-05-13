@@ -298,7 +298,7 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
     }
 
     if(Content) {
-		//this field is ommited when the embedded texture is already loaded, let's ignore if it´s not found
+		//this field is ommited when the embedded texture is already loaded, let's ignore if itï¿½s not found
 		try {
 			const Token& token = GetRequiredToken(*Content, 0);
 			const char* data = token.begin();
@@ -323,7 +323,7 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 				::memcpy(content, data + 5, len);
 			}
 		} catch (runtime_error runtimeError) {
-			//we don´t need the content data for contents that has already been loaded
+			//we donï¿½t need the content data for contents that has already been loaded
 		}
     }
 

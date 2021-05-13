@@ -7,7 +7,7 @@
 #include "../AngelScript/Generated_Members.h"
 #include "../AngelScript/Manual.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 void FakeAddRef(void* ptr);
@@ -7562,8 +7562,8 @@ static void Register_DynamicNavigationMesh(asIScriptEngine* engine)
 // class RaycastVehicle | File: ../Physics/RaycastVehicle.h
 static void Register_RaycastVehicle(asIScriptEngine* engine)
 {
-    // explicit RaycastVehicle::RaycastVehicle(Urho3D::Context* context)
-    // Error: type "Urho3D::Context*" can not automatically bind
+    // explicit RaycastVehicle::RaycastVehicle(Dviglo::Context* context)
+    // Error: type "Dviglo::Context*" can not automatically bind
 
     RegisterSubclass<LogicComponent, RaycastVehicle>(engine, "LogicComponent", "RaycastVehicle");
     RegisterSubclass<Component, RaycastVehicle>(engine, "Component", "RaycastVehicle");

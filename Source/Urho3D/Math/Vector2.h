@@ -1,31 +1,13 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
 #include "../Container/Str.h"
 #include "../Math/MathDefs.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Two-dimensional vector with integer values.
@@ -289,7 +271,7 @@ public:
     void Normalize()
     {
         float lenSquared = LengthSquared();
-        if (!Urho3D::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
+        if (!Dviglo::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
         {
             float invLen = 1.0f / sqrtf(lenSquared);
             x_ *= invLen;
@@ -309,34 +291,34 @@ public:
     float DotProduct(const Vector2& rhs) const { return x_ * rhs.x_ + y_ * rhs.y_; }
 
     /// Calculate absolute dot product.
-    float AbsDotProduct(const Vector2& rhs) const { return Urho3D::Abs(x_ * rhs.x_) + Urho3D::Abs(y_ * rhs.y_); }
+    float AbsDotProduct(const Vector2& rhs) const { return Dviglo::Abs(x_ * rhs.x_) + Dviglo::Abs(y_ * rhs.y_); }
 
     /// Project vector onto axis.
     float ProjectOntoAxis(const Vector2& axis) const { return DotProduct(axis.Normalized()); }
 
     /// Returns the angle between this vector and another vector in degrees.
-    float Angle(const Vector2& rhs) const { return Urho3D::Acos(DotProduct(rhs) / (Length() * rhs.Length())); }
+    float Angle(const Vector2& rhs) const { return Dviglo::Acos(DotProduct(rhs) / (Length() * rhs.Length())); }
 
     /// Return absolute vector.
-    Vector2 Abs() const { return Vector2(Urho3D::Abs(x_), Urho3D::Abs(y_)); }
+    Vector2 Abs() const { return Vector2(Dviglo::Abs(x_), Dviglo::Abs(y_)); }
 
     /// Linear interpolation with another vector.
     Vector2 Lerp(const Vector2& rhs, float t) const { return *this * (1.0f - t) + rhs * t; }
 
     /// Test for equality with another vector with epsilon.
-    bool Equals(const Vector2& rhs) const { return Urho3D::Equals(x_, rhs.x_) && Urho3D::Equals(y_, rhs.y_); }
+    bool Equals(const Vector2& rhs) const { return Dviglo::Equals(x_, rhs.x_) && Dviglo::Equals(y_, rhs.y_); }
 
     /// Return whether any component is NaN.
-    bool IsNaN() const { return Urho3D::IsNaN(x_) || Urho3D::IsNaN(y_); }
+    bool IsNaN() const { return Dviglo::IsNaN(x_) || Dviglo::IsNaN(y_); }
 
     /// Return whether any component is Inf.
-    bool IsInf() const { return Urho3D::IsInf(x_) || Urho3D::IsInf(y_); }
+    bool IsInf() const { return Dviglo::IsInf(x_) || Dviglo::IsInf(y_); }
 
     /// Return normalized to unit length.
     Vector2 Normalized() const
     {
         const float lenSquared = LengthSquared();
-        if (!Urho3D::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
+        if (!Dviglo::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
         {
             const float invLen = 1.0f / sqrtf(lenSquared);
             return *this * invLen;

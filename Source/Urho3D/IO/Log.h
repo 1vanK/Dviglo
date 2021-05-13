@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
@@ -27,7 +9,7 @@
 #include "../Core/Object.h"
 #include "../Core/StringUtils.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Fictional message level to indicate a stored raw message.
@@ -141,21 +123,21 @@ private:
 };
 
 #ifdef URHO3D_LOGGING
-#define URHO3D_LOG(level, message) Urho3D::Log::Write(level, message)
-#define URHO3D_LOGTRACE(message) Urho3D::Log::Write(Urho3D::LOG_TRACE, message)
-#define URHO3D_LOGDEBUG(message) Urho3D::Log::Write(Urho3D::LOG_DEBUG, message)
-#define URHO3D_LOGINFO(message) Urho3D::Log::Write(Urho3D::LOG_INFO, message)
-#define URHO3D_LOGWARNING(message) Urho3D::Log::Write(Urho3D::LOG_WARNING, message)
-#define URHO3D_LOGERROR(message) Urho3D::Log::Write(Urho3D::LOG_ERROR, message)
-#define URHO3D_LOGRAW(message) Urho3D::Log::Write(Urho3D::LOG_RAW, message)
+#define URHO3D_LOG(level, message) Dviglo::Log::Write(level, message)
+#define URHO3D_LOGTRACE(message) Dviglo::Log::Write(Dviglo::LOG_TRACE, message)
+#define URHO3D_LOGDEBUG(message) Dviglo::Log::Write(Dviglo::LOG_DEBUG, message)
+#define URHO3D_LOGINFO(message) Dviglo::Log::Write(Dviglo::LOG_INFO, message)
+#define URHO3D_LOGWARNING(message) Dviglo::Log::Write(Dviglo::LOG_WARNING, message)
+#define URHO3D_LOGERROR(message) Dviglo::Log::Write(Dviglo::LOG_ERROR, message)
+#define URHO3D_LOGRAW(message) Dviglo::Log::Write(Dviglo::LOG_RAW, message)
 
-#define URHO3D_LOGF(level, format, ...) Urho3D::Log::WriteFormat(level, format, ##__VA_ARGS__)
-#define URHO3D_LOGTRACEF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_TRACE, format, ##__VA_ARGS__)
-#define URHO3D_LOGDEBUGF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_DEBUG, format, ##__VA_ARGS__)
-#define URHO3D_LOGINFOF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_INFO, format, ##__VA_ARGS__)
-#define URHO3D_LOGWARNINGF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_WARNING, format, ##__VA_ARGS__)
-#define URHO3D_LOGERRORF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_ERROR, format, ##__VA_ARGS__)
-#define URHO3D_LOGRAWF(format, ...) Urho3D::Log::WriteFormat(Urho3D::LOG_RAW, format, ##__VA_ARGS__)
+#define URHO3D_LOGF(level, format, ...) Dviglo::Log::WriteFormat(level, format, ##__VA_ARGS__)
+#define URHO3D_LOGTRACEF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_TRACE, format, ##__VA_ARGS__)
+#define URHO3D_LOGDEBUGF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_DEBUG, format, ##__VA_ARGS__)
+#define URHO3D_LOGINFOF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_INFO, format, ##__VA_ARGS__)
+#define URHO3D_LOGWARNINGF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_WARNING, format, ##__VA_ARGS__)
+#define URHO3D_LOGERRORF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_ERROR, format, ##__VA_ARGS__)
+#define URHO3D_LOGRAWF(format, ...) Dviglo::Log::WriteFormat(Dviglo::LOG_RAW, format, ##__VA_ARGS__)
 
 #else
 #define URHO3D_LOG(message) ((void)0)

@@ -7,7 +7,7 @@
 
 #include <cstdio>
 
-using namespace Urho3D;
+using namespace Dviglo;
 
 SharedPtr<Context> context(new Context());
 SharedPtr<FileSystem> fileSystem(new FileSystem(context));

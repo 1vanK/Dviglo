@@ -7,7 +7,7 @@
 #include "../AngelScript/Generated_Includes.h"
 #include "../AngelScript/Manual.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 // struct AllocatorBlock | File: ../Container/Allocator.h
@@ -4432,10 +4432,10 @@ template <class T> void RegisterMembers_Serializer(asIScriptEngine* engine, cons
 // struct ShaderParameter | File: ../Graphics/ShaderVariation.h
 template <class T> void RegisterMembers_ShaderParameter(asIScriptEngine* engine, const char* className)
 {
-    // union ShaderParameter::@4 Urho3D::ShaderParameter::@5
-    // Error: type "union Urho3D::ShaderParameter::@4" can not automatically bind
-    // union ShaderParameter::@6 Urho3D::ShaderParameter::@7
-    // Error: type "union Urho3D::ShaderParameter::@6" can not automatically bind
+    // union ShaderParameter::@4 Dviglo::ShaderParameter::@5
+    // Error: type "union Dviglo::ShaderParameter::@4" can not automatically bind
+    // union ShaderParameter::@6 Dviglo::ShaderParameter::@7
+    // Error: type "union Dviglo::ShaderParameter::@6" can not automatically bind
     // ConstantBuffer* ShaderParameter::bufferPtr_
     // Not registered because pointer
 
@@ -14891,8 +14891,8 @@ template <class T> void RegisterMembers_TmxFile2D(asIScriptEngine* engine, const
 {
     RegisterMembers_Resource<T>(engine, className);
 
-    // void TmxFile2D::AddLayer(Urho3D::TmxLayer2D* layer)
-    // Error: type "Urho3D::TmxLayer2D*" can not automatically bind
+    // void TmxFile2D::AddLayer(Dviglo::TmxLayer2D* layer)
+    // Error: type "Dviglo::TmxLayer2D*" can not automatically bind
 
     // void TmxFile2D::AddLayer(unsigned index, TmxLayer2D* layer)
     engine->RegisterObjectMethod(className, "void AddLayer(uint, TmxLayer2D@+)", AS_METHODPR(T, AddLayer, (unsigned, TmxLayer2D*), void), AS_CALL_THISCALL);
@@ -19113,10 +19113,10 @@ template <class T> void RegisterMembers_UnknownComponent(asIScriptEngine* engine
     // void UnknownComponent::SetTypeName(const String& typeName)
     engine->RegisterObjectMethod(className, "void SetTypeName(const String&in)", AS_METHODPR(T, SetTypeName, (const String&), void), AS_CALL_THISCALL);
 
-    // static Urho3D::StringHash UnknownComponent::GetTypeStatic()
-    // Error: type "Urho3D::StringHash" can not automatically bind
-    // static const Urho3D::String& UnknownComponent::GetTypeNameStatic()
-    // Error: type "const Urho3D::String&" can not automatically bind
+    // static Dviglo::StringHash UnknownComponent::GetTypeStatic()
+    // Error: type "Dviglo::StringHash" can not automatically bind
+    // static const Dviglo::String& UnknownComponent::GetTypeNameStatic()
+    // Error: type "const Dviglo::String&" can not automatically bind
 
     #ifdef REGISTER_MEMBERS_MANUAL_PART_UnknownComponent
         REGISTER_MEMBERS_MANUAL_PART_UnknownComponent();
@@ -25369,4 +25369,4 @@ template <class T> void RegisterMembers_StretchableSprite2D(asIScriptEngine* eng
 
 #endif // def URHO3D_URHO2D
 
-} // namespace Urho3D
+} // namespace Dviglo

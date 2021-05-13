@@ -5,7 +5,7 @@
 
 #include "../AngelScript/Generated_Includes.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 // const Vector<String>& GetArguments() | File: ../Core/ProcessUtils.h

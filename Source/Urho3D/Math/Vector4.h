@@ -1,30 +1,12 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
 #include "../Math/Vector3.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Four-dimensional vector.
@@ -173,14 +155,14 @@ public:
     /// Calculate absolute dot product.
     float AbsDotProduct(const Vector4& rhs) const
     {
-        return Urho3D::Abs(x_ * rhs.x_) + Urho3D::Abs(y_ * rhs.y_) + Urho3D::Abs(z_ * rhs.z_) + Urho3D::Abs(w_ * rhs.w_);
+        return Dviglo::Abs(x_ * rhs.x_) + Dviglo::Abs(y_ * rhs.y_) + Dviglo::Abs(z_ * rhs.z_) + Dviglo::Abs(w_ * rhs.w_);
     }
 
     /// Project vector onto axis.
     float ProjectOntoAxis(const Vector3& axis) const { return DotProduct(Vector4(axis.Normalized(), 0.0f)); }
 
     /// Return absolute vector.
-    Vector4 Abs() const { return Vector4(Urho3D::Abs(x_), Urho3D::Abs(y_), Urho3D::Abs(z_), Urho3D::Abs(w_)); }
+    Vector4 Abs() const { return Vector4(Dviglo::Abs(x_), Dviglo::Abs(y_), Dviglo::Abs(z_), Dviglo::Abs(w_)); }
 
     /// Linear interpolation with another vector.
     Vector4 Lerp(const Vector4& rhs, float t) const { return *this * (1.0f - t) + rhs * t; }
@@ -188,14 +170,14 @@ public:
     /// Test for equality with another vector with epsilon.
     bool Equals(const Vector4& rhs) const
     {
-        return Urho3D::Equals(x_, rhs.x_) && Urho3D::Equals(y_, rhs.y_) && Urho3D::Equals(z_, rhs.z_) && Urho3D::Equals(w_, rhs.w_);
+        return Dviglo::Equals(x_, rhs.x_) && Dviglo::Equals(y_, rhs.y_) && Dviglo::Equals(z_, rhs.z_) && Dviglo::Equals(w_, rhs.w_);
     }
 
     /// Return whether any component is NaN.
-    bool IsNaN() const { return Urho3D::IsNaN(x_) || Urho3D::IsNaN(y_) || Urho3D::IsNaN(z_) || Urho3D::IsNaN(w_); }
+    bool IsNaN() const { return Dviglo::IsNaN(x_) || Dviglo::IsNaN(y_) || Dviglo::IsNaN(z_) || Dviglo::IsNaN(w_); }
 
     /// Return whether any component is Inf.
-    bool IsInf() const { return Urho3D::IsInf(x_) || Urho3D::IsInf(y_) || Urho3D::IsInf(z_) || Urho3D::IsInf(w_); }
+    bool IsInf() const { return Dviglo::IsInf(x_) || Dviglo::IsInf(y_) || Dviglo::IsInf(z_) || Dviglo::IsInf(w_); }
 
     /// Convert to Vector2.
     explicit operator Vector2() const { return { x_, y_ }; }

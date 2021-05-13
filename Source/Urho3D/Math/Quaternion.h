@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
@@ -28,7 +10,7 @@
 #include <emmintrin.h>
 #endif
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Rotation represented as a four-dimensional normalized vector.
@@ -324,7 +306,7 @@ public:
         _mm_storeu_ps(&w_, _mm_mul_ps(q, n));
 #else
         float lenSquared = LengthSquared();
-        if (!Urho3D::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
+        if (!Dviglo::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
         {
             float invLen = 1.0f / sqrtf(lenSquared);
             w_ *= invLen;
@@ -350,7 +332,7 @@ public:
         return Quaternion(_mm_mul_ps(q, n));
 #else
         float lenSquared = LengthSquared();
-        if (!Urho3D::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
+        if (!Dviglo::Equals(lenSquared, 1.0f) && lenSquared > 0.0f)
         {
             float invLen = 1.0f / sqrtf(lenSquared);
             return *this * invLen;
@@ -412,14 +394,14 @@ public:
     /// Test for equality with another quaternion with epsilon.
     bool Equals(const Quaternion& rhs) const
     {
-        return Urho3D::Equals(w_, rhs.w_) && Urho3D::Equals(x_, rhs.x_) && Urho3D::Equals(y_, rhs.y_) && Urho3D::Equals(z_, rhs.z_);
+        return Dviglo::Equals(w_, rhs.w_) && Dviglo::Equals(x_, rhs.x_) && Dviglo::Equals(y_, rhs.y_) && Dviglo::Equals(z_, rhs.z_);
     }
 
     /// Return whether any element is NaN.
-    bool IsNaN() const { return Urho3D::IsNaN(w_) || Urho3D::IsNaN(x_) || Urho3D::IsNaN(y_) || Urho3D::IsNaN(z_); }
+    bool IsNaN() const { return Dviglo::IsNaN(w_) || Dviglo::IsNaN(x_) || Dviglo::IsNaN(y_) || Dviglo::IsNaN(z_); }
 
     /// Return whether any element is Inf.
-    bool IsInf() const { return Urho3D::IsInf(w_) || Urho3D::IsInf(x_) || Urho3D::IsInf(y_) || Urho3D::IsInf(z_); }
+    bool IsInf() const { return Dviglo::IsInf(w_) || Dviglo::IsInf(x_) || Dviglo::IsInf(y_) || Dviglo::IsInf(z_); }
 
     /// Return conjugate.
     Quaternion Conjugate() const

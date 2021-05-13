@@ -7,7 +7,7 @@
 
 #include "../AngelScript/Generated_Includes.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 void ASRegisterGeneratedDefaultConstructors(asIScriptEngine* engine)

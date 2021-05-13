@@ -8,7 +8,7 @@
 // Some headers could re-define M_PI, ensure that it's undefined
 #undef M_PI
 
-namespace Urho3D
+namespace Dviglo
 {
 
 void ASRegisterGeneratedGlobalVariables(asIScriptEngine* engine)

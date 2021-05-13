@@ -6,7 +6,7 @@
 
 #include <new>
 
-namespace Urho3D
+namespace Dviglo
 {
 
 // Constructors that don't require parameter conversion between C++ and AngelScript
@@ -297,4 +297,4 @@ C* ASCompatibleFactory(P0 p0, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7)
 
 #endif
 
-} // namespace Urho3D
+} // namespace Dviglo

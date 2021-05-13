@@ -7,7 +7,7 @@
 
 #include "../AngelScript/Generated_Includes.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 
 // enum AnimationChannel : unsigned char | File: ../Graphics/Animation.h

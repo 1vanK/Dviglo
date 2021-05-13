@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
@@ -28,7 +10,7 @@
 #include <cassert>
 #include <initializer_list>
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Hash set template class.
@@ -423,7 +405,7 @@ public:
             ptr = ptr->Next();
         }
 
-        Urho3D::Sort(RandomAccessIterator<Node*>(ptrs), RandomAccessIterator<Node*>(ptrs + numKeys), CompareNodes);
+        Dviglo::Sort(RandomAccessIterator<Node*>(ptrs), RandomAccessIterator<Node*>(ptrs + numKeys), CompareNodes);
 
         head_ = ptrs[0];
         ptrs[0]->prev_ = 0;
@@ -640,12 +622,12 @@ private:
     unsigned Hash(const T& key) const { return MakeHash(key) & (NumBuckets() - 1); }
 };
 
-template <class T> typename Urho3D::HashSet<T>::ConstIterator begin(const Urho3D::HashSet<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::HashSet<T>::ConstIterator begin(const Dviglo::HashSet<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::HashSet<T>::ConstIterator end(const Urho3D::HashSet<T>& v) { return v.End(); }
+template <class T> typename Dviglo::HashSet<T>::ConstIterator end(const Dviglo::HashSet<T>& v) { return v.End(); }
 
-template <class T> typename Urho3D::HashSet<T>::Iterator begin(Urho3D::HashSet<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::HashSet<T>::Iterator begin(Dviglo::HashSet<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::HashSet<T>::Iterator end(Urho3D::HashSet<T>& v) { return v.End(); }
+template <class T> typename Dviglo::HashSet<T>::Iterator end(Dviglo::HashSet<T>& v) { return v.End(); }
 
 }

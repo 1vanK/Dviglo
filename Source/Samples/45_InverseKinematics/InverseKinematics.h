@@ -1,30 +1,12 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
 #include "Sample.h"
 
-namespace Urho3D
+namespace Dviglo
 {
 class AnimationController;
 class Node;
@@ -48,19 +30,19 @@ public:
 
 protected:
     /// Animation controller of Jack.
-    SharedPtr<Urho3D::AnimationController> jackAnimCtrl_;
+    SharedPtr<Dviglo::AnimationController> jackAnimCtrl_;
     /// Inverse kinematic left effector.
-    SharedPtr<Urho3D::IKEffector> leftEffector_;
+    SharedPtr<Dviglo::IKEffector> leftEffector_;
     /// Inverse kinematic right effector.
-    SharedPtr<Urho3D::IKEffector> rightEffector_;
+    SharedPtr<Dviglo::IKEffector> rightEffector_;
     /// Inverse kinematic solver.
-    SharedPtr<Urho3D::IKSolver> solver_;
+    SharedPtr<Dviglo::IKSolver> solver_;
     /// Need references to these nodes to calculate foot angles and offsets.
-    SharedPtr<Urho3D::Node> leftFoot_;
-    SharedPtr<Urho3D::Node> rightFoot_;
-    SharedPtr<Urho3D::Node> jackNode_;
+    SharedPtr<Dviglo::Node> leftFoot_;
+    SharedPtr<Dviglo::Node> rightFoot_;
+    SharedPtr<Dviglo::Node> jackNode_;
     /// So we can rotate the floor.
-    SharedPtr<Urho3D::Node> floorNode_;
+    SharedPtr<Dviglo::Node> floorNode_;
     float floorPitch_{};
     float floorRoll_{};
     /// Whether or not to draw debug geometry.

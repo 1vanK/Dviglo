@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
@@ -36,7 +18,7 @@
 #pragma warning(disable:6293)
 #endif
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// %Vector template class.
@@ -1175,21 +1157,21 @@ private:
     }
 };
 
-template <class T> typename Urho3D::Vector<T>::ConstIterator begin(const Urho3D::Vector<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::Vector<T>::ConstIterator begin(const Dviglo::Vector<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::Vector<T>::ConstIterator end(const Urho3D::Vector<T>& v) { return v.End(); }
+template <class T> typename Dviglo::Vector<T>::ConstIterator end(const Dviglo::Vector<T>& v) { return v.End(); }
 
-template <class T> typename Urho3D::Vector<T>::Iterator begin(Urho3D::Vector<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::Vector<T>::Iterator begin(Dviglo::Vector<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::Vector<T>::Iterator end(Urho3D::Vector<T>& v) { return v.End(); }
+template <class T> typename Dviglo::Vector<T>::Iterator end(Dviglo::Vector<T>& v) { return v.End(); }
 
-template <class T> typename Urho3D::PODVector<T>::ConstIterator begin(const Urho3D::PODVector<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::PODVector<T>::ConstIterator begin(const Dviglo::PODVector<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::PODVector<T>::ConstIterator end(const Urho3D::PODVector<T>& v) { return v.End(); }
+template <class T> typename Dviglo::PODVector<T>::ConstIterator end(const Dviglo::PODVector<T>& v) { return v.End(); }
 
-template <class T> typename Urho3D::PODVector<T>::Iterator begin(Urho3D::PODVector<T>& v) { return v.Begin(); }
+template <class T> typename Dviglo::PODVector<T>::Iterator begin(Dviglo::PODVector<T>& v) { return v.Begin(); }
 
-template <class T> typename Urho3D::PODVector<T>::Iterator end(Urho3D::PODVector<T>& v) { return v.End(); }
+template <class T> typename Dviglo::PODVector<T>::Iterator end(Dviglo::PODVector<T>& v) { return v.End(); }
 
 }
 

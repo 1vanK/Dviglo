@@ -1,24 +1,5 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #include "Utils.h"
 #include "XmlAnalyzer.h"
@@ -536,8 +517,8 @@ ClassAnalyzer::ClassAnalyzer(xml_node compounddef, const TemplateSpecialization&
 string ClassAnalyzer::GetClassName() const
 {
     string compoundname = ExtractCompoundname(compounddef_);
-    assert(StartsWith(compoundname, "Urho3D::"));
-    return CutStart(compoundname, "Urho3D::");
+    assert(StartsWith(compoundname, "Dviglo::"));
+    return CutStart(compoundname, "Dviglo::");
 }
 
 string ClassAnalyzer::GetDirName() const
@@ -1145,7 +1126,7 @@ string MethodAnalyzer::GetContainsClassName() const
     string prototype = ExtractDefinition(memberdef_) + argsstring;
 
     smatch match;
-    regex_match(prototype, match, regex(".*Urho3D::(.+?)::.*"));
+    regex_match(prototype, match, regex(".*Dviglo::(.+?)::.*"));
     assert(match.size());
     string result = match[1].str();
 
@@ -1158,9 +1139,9 @@ string FieldAnalyzer::GetDeclaration() const
     string definition = ExtractDefinition(memberdef_);
     assert(!definition.empty());
 
-    // Remove Urho3D::
+    // Remove Dviglo::
     smatch match;
-    regex_match(definition, match, regex("(.*)Urho3D::(.+)"));
+    regex_match(definition, match, regex("(.*)Dviglo::(.+)"));
     assert(match.size() == 3);
     string result = match[1].str() + match[2].str();
 
@@ -1180,8 +1161,8 @@ string GetVariableDeclaration(xml_node memberdef)
     result = RemoveFirst(result, "URHO3D_API ");
     result = RemoveFirst(result, " URHO3D_API");
 
-    assert(Contains(result, " Urho3D::"));
-    result = ReplaceFirst(result, " Urho3D::", " ");
+    assert(Contains(result, " Dviglo::"));
+    result = ReplaceFirst(result, " Dviglo::", " ");
 
     if (IsStatic(memberdef))
         result = "static " + result;
@@ -1202,7 +1183,7 @@ string GetFunctionDeclaration(xml_node memberdef)
     string prototype = ExtractDefinition(memberdef) + argsstring;
 
     smatch match;
-    regex_match(prototype, match, regex("([^(]*)Urho3D::(.+?)"));
+    regex_match(prototype, match, regex("([^(]*)Dviglo::(.+?)"));
     assert(match.size());
     string result = match[1].str() + match[2].str();
 
@@ -1289,7 +1270,7 @@ bool MethodAnalyzer::IsParentDestructor() const
 bool MethodAnalyzer::IsConstructor() const
 {
     string name = GetName();
-    return ExtractDefinition(memberdef_) == "Urho3D::" + name + "::" + name;
+    return ExtractDefinition(memberdef_) == "Dviglo::" + name + "::" + name;
 }
 
 bool MethodAnalyzer::IsDestructor() const
@@ -1305,7 +1286,7 @@ bool MethodAnalyzer::IsParentConstructor() const
 
     string name = GetName();
 
-    return ExtractDefinition(memberdef_) == "Urho3D::" + name + "::" + name;
+    return ExtractDefinition(memberdef_) == "Dviglo::" + name + "::" + name;
 }
 
 shared_ptr<MethodAnalyzer> MethodAnalyzer::Reimplements() const

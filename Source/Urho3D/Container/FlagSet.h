@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #pragma once
 
@@ -26,20 +8,20 @@
 #include <type_traits>
 
 
-namespace Urho3D
+namespace Dviglo
 {
 
 /// Make bitwise operators (| & ^ ~) automatically construct FlagSet from Enum.
 #define URHO3D_AUTOMATIC_FLAGSET(Enum) \
-    inline Urho3D::FlagSet<Enum> operator | (const Enum lhs, const Enum rhs) { return Urho3D::FlagSet<Enum>(lhs) | rhs; } \
-    inline Urho3D::FlagSet<Enum> operator & (const Enum lhs, const Enum rhs) { return Urho3D::FlagSet<Enum>(lhs) & rhs; } \
-    inline Urho3D::FlagSet<Enum> operator ^ (const Enum lhs, const Enum rhs) { return Urho3D::FlagSet<Enum>(lhs) ^ rhs; } \
-    inline Urho3D::FlagSet<Enum> operator ~ (const Enum rhs) { return ~Urho3D::FlagSet<Enum>(rhs); }
+    inline Dviglo::FlagSet<Enum> operator | (const Enum lhs, const Enum rhs) { return Dviglo::FlagSet<Enum>(lhs) | rhs; } \
+    inline Dviglo::FlagSet<Enum> operator & (const Enum lhs, const Enum rhs) { return Dviglo::FlagSet<Enum>(lhs) & rhs; } \
+    inline Dviglo::FlagSet<Enum> operator ^ (const Enum lhs, const Enum rhs) { return Dviglo::FlagSet<Enum>(lhs) ^ rhs; } \
+    inline Dviglo::FlagSet<Enum> operator ~ (const Enum rhs) { return ~Dviglo::FlagSet<Enum>(rhs); }
 
 /// Declare FlagSet for specific enum and create operators for automatic FlagSet construction.
 #define URHO3D_FLAGSET(enumName, flagsetName) \
     URHO3D_AUTOMATIC_FLAGSET(enumName); \
-    using flagsetName = Urho3D::FlagSet<enumName>
+    using flagsetName = Dviglo::FlagSet<enumName>
 
 /// A set of flags defined by an Enum.
 template <class E>

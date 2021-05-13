@@ -1,24 +1,6 @@
-//
-// Copyright (c) 2008-2021 the Urho3D project.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
+// Copyright (c) 2008-2021 the Urho3D project
+// Copyright (c) 2021 проект Dviglo
+// Лицензия: MIT
 
 #include "../Precompiled.h"
 
@@ -43,11 +25,11 @@
 #include <spine/extension.h>
 
 // Current animation set
-static Urho3D::AnimationSet2D* currentAnimationSet = 0;
+static Dviglo::AnimationSet2D* currentAnimationSet = 0;
 
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
-    using namespace Urho3D;
+    using namespace Dviglo;
     if (!currentAnimationSet)
         return;
 
@@ -65,7 +47,7 @@ void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 
 void _spAtlasPage_disposeTexture(spAtlasPage* self)
 {
-    using namespace Urho3D;
+    using namespace Dviglo;
     Sprite2D* sprite = static_cast<Sprite2D*>(self->rendererObject);
     if (sprite)
         sprite->ReleaseRef();
@@ -75,7 +57,7 @@ void _spAtlasPage_disposeTexture(spAtlasPage* self)
 
 char* _spUtil_readFile(const char* path, int* length)
 {
-    using namespace Urho3D;
+    using namespace Dviglo;
 
     if (!currentAnimationSet)
         return 0;
@@ -98,7 +80,7 @@ char* _spUtil_readFile(const char* path, int* length)
 }
 #endif
 
-namespace Urho3D
+namespace Dviglo
 {
 
 AnimationSet2D::AnimationSet2D(Context* context) :
