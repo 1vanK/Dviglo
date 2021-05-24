@@ -7215,7 +7215,7 @@ template <class T> void RegisterMembers_PhysicsWorldConfig(asIScriptEngine* engi
 
 #ifdef URHO3D_URHO2D
 
-// struct DelayedWorldTransform2D | File: ../Urho2D/PhysicsWorld2D.h
+// struct DelayedWorldTransform2D | File: ../Physics2D/PhysicsWorld2D.h
 template <class T> void RegisterMembers_DelayedWorldTransform2D(asIScriptEngine* engine, const char* className)
 {
     // RigidBody2D* DelayedWorldTransform2D::rigidBody_
@@ -7290,7 +7290,7 @@ template <class T> void RegisterMembers_Particle2D(asIScriptEngine* engine, cons
     #endif
 }
 
-// struct PhysicsRaycastResult2D | File: ../Urho2D/PhysicsWorld2D.h
+// struct PhysicsRaycastResult2D | File: ../Physics2D/PhysicsWorld2D.h
 template <class T> void RegisterMembers_PhysicsRaycastResult2D(asIScriptEngine* engine, const char* className)
 {
     // bool PhysicsRaycastResult2D::operator !=(const PhysicsRaycastResult2D& rhs) const
@@ -20886,7 +20886,7 @@ template <class T> void RegisterMembers_RigidBody(asIScriptEngine* engine, const
 
 #ifdef URHO3D_URHO2D
 
-// class CollisionShape2D | File: ../Urho2D/CollisionShape2D.h
+// class CollisionShape2D | File: ../Physics2D/CollisionShape2D.h
 template <class T> void RegisterMembers_CollisionShape2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Component<T>(engine, className);
@@ -20979,7 +20979,7 @@ template <class T> void RegisterMembers_CollisionShape2D(asIScriptEngine* engine
     #endif
 }
 
-// class Constraint2D | File: ../Urho2D/Constraint2D.h
+// class Constraint2D | File: ../Physics2D/Constraint2D.h
 template <class T> void RegisterMembers_Constraint2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Component<T>(engine, className);
@@ -21030,7 +21030,7 @@ template <class T> void RegisterMembers_Constraint2D(asIScriptEngine* engine, co
     #endif
 }
 
-// class PhysicsWorld2D | File: ../Urho2D/PhysicsWorld2D.h
+// class PhysicsWorld2D | File: ../Physics2D/PhysicsWorld2D.h
 template <class T> void RegisterMembers_PhysicsWorld2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Component<T>(engine, className);
@@ -21215,7 +21215,7 @@ template <class T> void RegisterMembers_PhysicsWorld2D(asIScriptEngine* engine, 
     #endif
 }
 
-// class RigidBody2D | File: ../Urho2D/RigidBody2D.h
+// class RigidBody2D | File: ../Physics2D/RigidBody2D.h
 template <class T> void RegisterMembers_RigidBody2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Component<T>(engine, className);
@@ -23834,7 +23834,7 @@ template <class T> void RegisterMembers_RaycastVehicle(asIScriptEngine* engine, 
 
 #ifdef URHO3D_URHO2D
 
-// class CollisionBox2D | File: ../Urho2D/CollisionBox2D.h
+// class CollisionBox2D | File: ../Physics2D/CollisionBox2D.h
 template <class T> void RegisterMembers_CollisionBox2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_CollisionShape2D<T>(engine, className);
@@ -23888,7 +23888,7 @@ template <class T> void CollisionChain2D_void_SetVertices_constspPODVectorlesVec
     _ptr->SetVertices(vertices);
 }
 
-// class CollisionChain2D | File: ../Urho2D/CollisionChain2D.h
+// class CollisionChain2D | File: ../Physics2D/CollisionChain2D.h
 template <class T> void RegisterMembers_CollisionChain2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_CollisionShape2D<T>(engine, className);
@@ -23931,7 +23931,7 @@ template <class T> void RegisterMembers_CollisionChain2D(asIScriptEngine* engine
     #endif
 }
 
-// class CollisionCircle2D | File: ../Urho2D/CollisionCircle2D.h
+// class CollisionCircle2D | File: ../Physics2D/CollisionCircle2D.h
 template <class T> void RegisterMembers_CollisionCircle2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_CollisionShape2D<T>(engine, className);
@@ -23960,7 +23960,7 @@ template <class T> void RegisterMembers_CollisionCircle2D(asIScriptEngine* engin
     #endif
 }
 
-// class CollisionEdge2D | File: ../Urho2D/CollisionEdge2D.h
+// class CollisionEdge2D | File: ../Physics2D/CollisionEdge2D.h
 template <class T> void RegisterMembers_CollisionEdge2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_CollisionShape2D<T>(engine, className);
@@ -24003,7 +24003,7 @@ template <class T> void CollisionPolygon2D_void_SetVertices_constspPODVectorlesV
     _ptr->SetVertices(vertices);
 }
 
-// class CollisionPolygon2D | File: ../Urho2D/CollisionPolygon2D.h
+// class CollisionPolygon2D | File: ../Physics2D/CollisionPolygon2D.h
 template <class T> void RegisterMembers_CollisionPolygon2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_CollisionShape2D<T>(engine, className);
@@ -24038,7 +24038,7 @@ template <class T> void RegisterMembers_CollisionPolygon2D(asIScriptEngine* engi
     #endif
 }
 
-// class ConstraintDistance2D | File: ../Urho2D/ConstraintDistance2D.h
+// class ConstraintDistance2D | File: ../Physics2D/ConstraintDistance2D.h
 template <class T> void RegisterMembers_ConstraintDistance2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24088,7 +24088,7 @@ template <class T> void RegisterMembers_ConstraintDistance2D(asIScriptEngine* en
     #endif
 }
 
-// class ConstraintFriction2D | File: ../Urho2D/ConstraintFriction2D.h
+// class ConstraintFriction2D | File: ../Physics2D/ConstraintFriction2D.h
 template <class T> void RegisterMembers_ConstraintFriction2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24122,7 +24122,7 @@ template <class T> void RegisterMembers_ConstraintFriction2D(asIScriptEngine* en
     #endif
 }
 
-// class ConstraintGear2D | File: ../Urho2D/ConstraintGear2D.h
+// class ConstraintGear2D | File: ../Physics2D/ConstraintGear2D.h
 template <class T> void RegisterMembers_ConstraintGear2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24156,7 +24156,7 @@ template <class T> void RegisterMembers_ConstraintGear2D(asIScriptEngine* engine
     #endif
 }
 
-// class ConstraintMotor2D | File: ../Urho2D/ConstraintMotor2D.h
+// class ConstraintMotor2D | File: ../Physics2D/ConstraintMotor2D.h
 template <class T> void RegisterMembers_ConstraintMotor2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24206,7 +24206,7 @@ template <class T> void RegisterMembers_ConstraintMotor2D(asIScriptEngine* engin
     #endif
 }
 
-// class ConstraintMouse2D | File: ../Urho2D/ConstraintMouse2D.h
+// class ConstraintMouse2D | File: ../Physics2D/ConstraintMouse2D.h
 template <class T> void RegisterMembers_ConstraintMouse2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24248,7 +24248,7 @@ template <class T> void RegisterMembers_ConstraintMouse2D(asIScriptEngine* engin
     #endif
 }
 
-// class ConstraintPrismatic2D | File: ../Urho2D/ConstraintPrismatic2D.h
+// class ConstraintPrismatic2D | File: ../Physics2D/ConstraintPrismatic2D.h
 template <class T> void RegisterMembers_ConstraintPrismatic2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24322,7 +24322,7 @@ template <class T> void RegisterMembers_ConstraintPrismatic2D(asIScriptEngine* e
     #endif
 }
 
-// class ConstraintPulley2D | File: ../Urho2D/ConstraintPulley2D.h
+// class ConstraintPulley2D | File: ../Physics2D/ConstraintPulley2D.h
 template <class T> void RegisterMembers_ConstraintPulley2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24372,7 +24372,7 @@ template <class T> void RegisterMembers_ConstraintPulley2D(asIScriptEngine* engi
     #endif
 }
 
-// class ConstraintRevolute2D | File: ../Urho2D/ConstraintRevolute2D.h
+// class ConstraintRevolute2D | File: ../Physics2D/ConstraintRevolute2D.h
 template <class T> void RegisterMembers_ConstraintRevolute2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24438,7 +24438,7 @@ template <class T> void RegisterMembers_ConstraintRevolute2D(asIScriptEngine* en
     #endif
 }
 
-// class ConstraintRope2D | File: ../Urho2D/ConstraintRope2D.h
+// class ConstraintRope2D | File: ../Physics2D/ConstraintRope2D.h
 template <class T> void RegisterMembers_ConstraintRope2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24472,7 +24472,7 @@ template <class T> void RegisterMembers_ConstraintRope2D(asIScriptEngine* engine
     #endif
 }
 
-// class ConstraintWeld2D | File: ../Urho2D/ConstraintWeld2D.h
+// class ConstraintWeld2D | File: ../Physics2D/ConstraintWeld2D.h
 template <class T> void RegisterMembers_ConstraintWeld2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);
@@ -24506,7 +24506,7 @@ template <class T> void RegisterMembers_ConstraintWeld2D(asIScriptEngine* engine
     #endif
 }
 
-// class ConstraintWheel2D | File: ../Urho2D/ConstraintWheel2D.h
+// class ConstraintWheel2D | File: ../Physics2D/ConstraintWheel2D.h
 template <class T> void RegisterMembers_ConstraintWheel2D(asIScriptEngine* engine, const char* className)
 {
     RegisterMembers_Constraint2D<T>(engine, className);

@@ -24,7 +24,7 @@
 #include <Urho3D/Urho2D/AnimationSet2D.h>
 #include <Urho3D/Core/Context.h>
 #include <Urho3D/Input/Input.h>
-#include <Urho3D/Urho2D/RigidBody2D.h>
+#include <Urho3D/Physics2D/RigidBody2D.h>
 #include <Urho3D/Scene/Scene.h>
 #include <Urho3D/Scene/SceneEvents.h>
 #include <Urho3D/UI/Text.h>

@@ -8,10 +8,10 @@
 
 #include "../Urho2D/ParticleEffect2D.h"
 #include "../Urho2D/TileMap2D.h"
-#include "../Urho2D/PhysicsWorld2D.h"
-#include "../Urho2D/CollisionPolygon2D.h"
-#include "../Urho2D/CollisionChain2D.h"
-#include "../Urho2D/RigidBody2D.h"
+#include "../Physics2D/PhysicsWorld2D.h"
+#include "../Physics2D/CollisionPolygon2D.h"
+#include "../Physics2D/CollisionChain2D.h"
+#include "../Physics2D/RigidBody2D.h"
 
 namespace Dviglo
 {

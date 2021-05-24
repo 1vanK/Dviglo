@@ -30,6 +30,9 @@ string InsideDefine(const string& headerFile)
     if (dir == "../Urho2D")
         return "URHO3D_URHO2D";
 
+    if (dir == "../Physics2D")
+        return "URHO3D_URHO2D";
+
     return string();
 }
 

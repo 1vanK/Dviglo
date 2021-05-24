@@ -2002,7 +2002,7 @@ void ASRegisterGeneratedEnums(asIScriptEngine* engine)
 #endif
 
 #ifdef URHO3D_URHO2D
-    // enum BodyType2D | File: ../Urho2D/RigidBody2D.h
+    // enum BodyType2D | File: ../Physics2D/RigidBody2D.h
     engine->RegisterEnum("BodyType2D");
     engine->RegisterEnumValue("BodyType2D", "BT_STATIC", BT_STATIC);
     engine->RegisterEnumValue("BodyType2D", "BT_KINEMATIC", BT_KINEMATIC);

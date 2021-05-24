@@ -123,12 +123,18 @@ if (URHO3D_SSL)
 endif ()
 
 # Define source files
-foreach (DIR IK Navigation Network Physics Urho2D WebP)
+foreach (DIR IK Navigation Network Physics Physics2D Urho2D WebP)
     string (TOUPPER URHO3D_${DIR} OPT)
     if (NOT ${OPT})
         list (APPEND EXCLUDED_SOURCE_DIRS ${DIR})
     endif ()
 endforeach ()
+# Так как еще нет дефайна URHO3D_PHYSICS2D,
+# то папка Physics2D ошибочно добавлена в список EXCLUDED_SOURCE_DIRS
+if (URHO3D_URHO2D)
+    list (REMOVE_ITEM EXCLUDED_SOURCE_DIRS Physics2D)
+endif ()
+
 if (NOT URHO3D_ANGELSCRIPT)
     list (APPEND EXCLUDED_SOURCE_DIRS AngelScript)
 endif ()
@@ -475,7 +481,7 @@ install_header_files (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${DEST_
 # Generate the include-all-headers header file even though we do not encourage Urho3D library users to use it
 list (SORT URHO_HEADERS)
 list (REVERSE URHO_HEADERS)
-set (OPTIONAL_SUBS AngelScript Database IK Navigation Network Physics Urho2D)
+set (OPTIONAL_SUBS AngelScript Database IK Navigation Network Physics Physics2D Urho2D)
 foreach (SUB ${OPTIONAL_SUBS})
     if (URHO_HEADERS MATCHES "(include/Urho3D/${SUB}[^;]+)")
         list (FIND URHO_HEADERS ${CMAKE_MATCH_1} FOUND_INDEX)

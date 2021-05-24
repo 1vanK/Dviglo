@@ -42,6 +42,7 @@
 #include "../Scene/SceneEvents.h"
 #include "../UI/UI.h"
 #ifdef URHO3D_URHO2D
+#include "../Physics2D/Physics2D.h"
 #include "../Urho2D/Urho2D.h"
 #endif
 
@@ -167,6 +168,7 @@ bool Engine::Initialize(const VariantMap& parameters)
 #ifdef URHO3D_URHO2D
     // 2D graphics library is dependent on 3D graphics library
     RegisterUrho2DLibrary(context_);
+    RegisterPhysics2DLibrary(context_);
 #endif
 
     // Start logging

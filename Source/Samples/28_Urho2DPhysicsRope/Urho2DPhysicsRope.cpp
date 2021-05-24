@@ -32,12 +32,12 @@
 #include <Urho3D/Scene/SceneEvents.h>
 #include <Urho3D/UI/Font.h>
 #include <Urho3D/UI/Text.h>
-#include <Urho3D/Urho2D/CollisionBox2D.h>
-#include <Urho3D/Urho2D/CollisionEdge2D.h>
-#include <Urho3D/Urho2D/ConstraintRevolute2D.h>
-#include <Urho3D/Urho2D/ConstraintRope2D.h>
-#include <Urho3D/Urho2D/PhysicsWorld2D.h>
-#include <Urho3D/Urho2D/RigidBody2D.h>
+#include <Urho3D/Physics2D/CollisionBox2D.h>
+#include <Urho3D/Physics2D/CollisionEdge2D.h>
+#include <Urho3D/Physics2D/ConstraintRevolute2D.h>
+#include <Urho3D/Physics2D/ConstraintRope2D.h>
+#include <Urho3D/Physics2D/PhysicsWorld2D.h>
+#include <Urho3D/Physics2D/RigidBody2D.h>
 
 #include "Urho2DPhysicsRope.h"
 
