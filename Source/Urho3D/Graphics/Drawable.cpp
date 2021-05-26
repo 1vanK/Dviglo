@@ -564,7 +564,7 @@ bool WriteDrawablesToOBJ(const PODVector<Drawable*>& drawables, File* outputFile
                     String output = "f ";
                     if (hasNormals)
                     {
-                        output.AppendWithFormat("%l/%l/%l %l/%l/%l %l/%l/%l",
+                        output.AppendWithFormat("%u/%u/%u %u/%u/%u %u/%u/%u",
                             currentPositionIndex + longIndices[0],
                             currentUVIndex + longIndices[0],
                             currentNormalIndex + longIndices[0],
@@ -578,7 +578,7 @@ bool WriteDrawablesToOBJ(const PODVector<Drawable*>& drawables, File* outputFile
                     else if (hasNormals || hasUV)
                     {
                         unsigned secondTraitIndex = hasNormals ? currentNormalIndex : currentUVIndex;
-                        output.AppendWithFormat("%l%s%l %l%s%l %l%s%l",
+                        output.AppendWithFormat("%u%s%u %u%s%u %u%s%u",
                             currentPositionIndex + longIndices[0],
                             slashCharacter.CString(),
                             secondTraitIndex + longIndices[0],
@@ -591,7 +591,7 @@ bool WriteDrawablesToOBJ(const PODVector<Drawable*>& drawables, File* outputFile
                     }
                     else
                     {
-                        output.AppendWithFormat("%l %l %l",
+                        output.AppendWithFormat("%u %u %u",
                             currentPositionIndex + longIndices[0],
                             currentPositionIndex + longIndices[1],
                             currentPositionIndex + longIndices[2]);
