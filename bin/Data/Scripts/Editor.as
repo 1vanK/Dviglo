@@ -27,12 +27,15 @@
 #include "Scripts/Editor/EditorViewPaintSelection.as"
 #include "Scripts/Editor/EditorDuplicator.as"
 
+// Значение устанавливается в функции Init_configFileName()
 String configFileName;
 
 void Start()
 {
-    // Assign the value ASAP because configFileName is needed on exit, including exit on error
-    configFileName = fileSystem.GetAppPreferencesDir("urho3d", "Editor") + "Config.xml";
+    // Устанавливаем значение как можно скорее, так как оно используется при завершении редактора,
+    // в том числе если возникла ошибка на этапе запуска
+    Init_configFileName();
+
     localization.LoadJSONFile("EditorStrings.json");
 
     if (engine.headless)
@@ -73,6 +76,27 @@ void Start()
     }
     // Use system clipboard to allow transport of text in & out from the editor
     ui.useSystemClipboard = true;
+}
+
+// Устанавливает значение переменной configFileName
+void Init_configFileName()
+{
+    // Дефолтный путь
+    configFileName = fileSystem.GetAppPreferencesDir("Dviglo", "Editor") + "Config.xml";
+
+    // Пользователь может переопределить дефолтный путь
+    Array<String> arguments = GetArguments();
+    for (uint i = 1; i < arguments.length; i++)
+    {
+        if (arguments[i].ToLower() == "-config")
+        {
+            if (++i < arguments.length)
+            {
+                configFileName = arguments[i];
+                break;
+            }
+        }
+    }
 }
 
 void FirstFrame()
