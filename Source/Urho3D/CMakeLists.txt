@@ -164,65 +164,6 @@ endif ()
 string (REPLACE ";" "/[^;]+;" EXCLUDE_PATTERNS "${EXCLUDED_SOURCE_DIRS};")
 define_source_files (EXCLUDE_PATTERNS ${EXCLUDE_PATTERNS} GLOB_CPP_PATTERNS *.cpp ${GLOB_OBJC_PATTERN} RECURSE GROUP)
 
-if (URHO3D_GENERATEBINDINGS)
-
-    find_package (Doxygen 1.8.17 REQUIRED)
-    if (NOT DOXYGEN_FOUND)
-        message (FATAL_ERROR "Doxygen >= 1.8.17 required to generate bindings")
-    endif ()
-
-    # Generating Doxyfile
-    set (DOXYFILE_PATH "${CMAKE_BINARY_DIR}/Source/Tools/BindingGenerator/generated/Doxyfile")
-    configure_file ("${CMAKE_SOURCE_DIR}/Source/Tools/BindingGenerator/Doxyfile.in" "${DOXYFILE_PATH}")
-
-    set (XML_AST_DIR "${CMAKE_BINARY_DIR}/Source/Tools/BindingGenerator/generated/xml")
-    set (BINDING_GENERATOR_PATH "${CMAKE_BINARY_DIR}/bin/tool/BindingGenerator")
-
-    set (AS_GENERATED_FILES "AngelScript/Generated_Enums.cpp"
-                            "AngelScript/Generated_ObjectTypes.cpp"
-                            "AngelScript/Generated_DefaultConstructors.cpp"
-                            "AngelScript/Generated_Classes.cpp"
-                            "AngelScript/Generated_GlobalVariables.cpp"
-                            "AngelScript/Generated_GlobalFunctions.cpp"
-                            "AngelScript/Generated_Includes.h"
-                            "AngelScript/Generated_Members.h"
-                            "AngelScript/Generated_Templates.h")
-
-    set (AS_GENERATED_FILES_FULL_PATHS "${AS_GENERATED_FILES}")
-    # Add "${CMAKE_SOURCE_DIR}/Source/Urho3D/" to every item in list
-    list(TRANSFORM AS_GENERATED_FILES_FULL_PATHS PREPEND "${CMAKE_SOURCE_DIR}/Source/Urho3D/")
-
-    set (BINDED_HEADER_FILES "${SOURCE_FILES}")
-    # Header files only are used when generating bindings
-    list (FILTER BINDED_HEADER_FILES INCLUDE REGEX ".*\.h$")
-    # Exclude files from AngelScript directory to solve circular dependency
-    list (FILTER BINDED_HEADER_FILES EXCLUDE REGEX "^AngelScript/")
-
-    # Generate xmls and run BindingGenerator
-    add_custom_command (OUTPUT ${AS_GENERATED_FILES_FULL_PATHS}
-                               #${CMAKE_SOURCE_DIR}/Source/Urho3D/Lua/Generated.cpp
-                               #${CMAKE_SOURCE_DIR}/Source/Urho3D/JavaScript/Generated.cpp
-                               #${CMAKE_SOURCE_DIR}/Source/Urho3D/CSharp/Generated.cpp
-                               #fake_output_to_force_run_every_time
-                        COMMAND ${CMAKE_COMMAND} -E echo "Generating XMLs with AST to ${XML_AST_DIR}"
-                        COMMAND ${DOXYGEN_EXECUTABLE} "${DOXYFILE_PATH}"
-                        COMMAND ${CMAKE_COMMAND} -E echo "Running ${BINDING_GENERATOR_PATH} ${XML_AST_DIR} ${CMAKE_SOURCE_DIR}"
-                        COMMAND "${BINDING_GENERATOR_PATH}" "${XML_AST_DIR}" "${CMAKE_SOURCE_DIR}"
-                        DEPENDS BindingGenerator "${DOXYFILE_PATH}" "${BINDED_HEADER_FILES}"
-                        COMMENT "Generating bindings to script languages")
-
-    if (URHO3D_ANGELSCRIPT)
-        # If generated files already exists they will be in list SOURCE_FILES already.
-        # But they can also be removed.
-        # Make sure we have generated files in SOURCE_FILES in a single copy
-        list (REMOVE_ITEM SOURCE_FILES ${AS_GENERATED_FILES})
-        list (APPEND SOURCE_FILES ${AS_GENERATED_FILES})
-
-        source_group ("Source Files\\AngelScript" FILES ${AS_GENERATED_FILES})
-    endif()
-
-endif ()
-
 # Define generated source files
 if (NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/librevision.h)
     execute_process (COMMAND ${CMAKE_COMMAND} -DFILENAME=${CMAKE_CURRENT_BINARY_DIR}/librevision.h -P cmake/Modules/GetUrhoRevision.cmake
