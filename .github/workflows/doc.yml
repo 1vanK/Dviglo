@@ -79,7 +79,7 @@ jobs:
           ret=$? # Сохраняем код возврата предыдущей команды
           cd ..
 
-          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (коммиты в репозитории были склеены)
+          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (например коммиты в репозитории были склеены)
           then
             echo "========== Не удалось обновить репозиторий, перезакачиваем целиком"
             rm -r DvigloRepository # Удаляем папку
@@ -99,6 +99,11 @@ jobs:
 
     - name: Публикуем документацию
 
+      # Не пытаемся опубликовать документацию, если action выполняется в форке
+      # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idif
+      # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
+      if: github.repository == 'Dviglo/Dviglo'
+
       shell: bash {0}
 
       run: |
@@ -109,7 +114,7 @@ jobs:
           ret=$? # Сохраняем код возврата предыдущей команды
           cd ..
 
-          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (коммиты в репозитории были склеены)
+          if (( ret != 0 )) # Если в процессе git pull возникла ошибка (например коммиты в репозитории были склеены)
           then
             echo "========== Не удалось обновить репозиторий, перезакачиваем целиком"
             rm -r SiteRepository # Удаляем папку
