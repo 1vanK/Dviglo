@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../Urho3DConfig.h"
+#include "../dviglo_config.h"
 
 namespace Dviglo
 {

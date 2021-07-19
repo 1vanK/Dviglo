@@ -1,253 +1,130 @@
-#
-# Copyright (c) 2008-2021 the Urho3D project.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
+# Данный workflow компилирует движок на разных платформах
 
----
-
+# Отображаемое имя workflow
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#name
 name: CI/CD
-on: [push, pull_request]
+
+# Запускается при push и PR. Также можно запустить вручную
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#manual-events
+on: [push, pull_request, workflow_dispatch]
+
 jobs:
-  linux:
-    name: 🐧
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - linux-gcc
-          - linux-clang
-          - mingw
-          - rpi
-          - arm
-        lib-type:
-          - static
-          - shared
-        architecture:
-          - 64
-          - 32
-        build-type:
-          - rel
-          - dbg
-        include:
-          - { platform: web, lib-type: static, architecture: wasm, build-type: rel }
-          - { platform: web, lib-type: static, architecture: wasm, build-type: dbg }
-    env:
-      HOST: ${{ github.job }}
-      PLATFORM: ${{ matrix.platform }}
-      BUILD_TYPE: ${{ matrix.build-type }}
-      LIB_TYPE: ${{ matrix.lib-type }}
-      ARCH: ${{ matrix.architecture }}
-      DBE_TAG: master
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
-      - name: Free up space
-        run: |
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android
-          sudo apt-get clean
-          df -h
-        if: matrix.build-type == 'dbg'
-      - name: Source checksum
-        id: source_checksum
-        run: rake source_checksum
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            build/cache/.ccache
-          key: |
-            ${{ matrix.platform }}-${{ matrix.lib-type }}-${{ matrix.architecture }}-${{ matrix.build-type }}-${{ env.DBE_TAG }}-${{ steps.source_checksum.outputs.hexdigest }}
-          restore-keys: |
-            ${{ matrix.platform }}-${{ matrix.lib-type }}-${{ matrix.architecture }}-${{ matrix.build-type }}-${{ env.DBE_TAG }}
-            ${{ matrix.platform }}-${{ matrix.lib-type }}-${{ matrix.architecture }}-${{ matrix.build-type }}
-      - name: DBE
-        run: rake update_dot_files && script/dockerized.sh ${PLATFORM/-*} env
-      - name: CMake
-        run: script/dockerized.sh ${PLATFORM/-*} rake cmake
-        if: matrix.platform != 'linux-clang-format'
-      - name: Build
-        run: script/dockerized.sh ${PLATFORM/-*} rake build
-        if: matrix.platform != 'linux-clang-format'
-      - name: Test
-        run: script/dockerized.sh ${PLATFORM/-*} rake test
-        if: startsWith(matrix.platform, 'linux')
-      - name: Documentation
-        run: script/dockerized.sh ${PLATFORM/-*} rake doc
-        if: matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Scaffolding - install
-        run: |
-          script/dockerized.sh ${PLATFORM/-*} rake install[~/stage]
-        if: matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Scaffolding - new
-        run: script/dockerized.sh ${PLATFORM/-*} rake new
-        if: matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Scaffolding - build
-        run: |
-          cd build/cache/projects/UrhoApp
-          URHO3D_HOME=/home/urho3d/stage/usr/local script/dockerized.sh ${PLATFORM/-*}
-        if: matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Scaffolding - test
-        run: |
-          cd build/cache/projects/UrhoApp
-          script/dockerized.sh ${PLATFORM/-*} rake test
-        if: (startsWith(matrix.platform, 'linux') && matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format')
-      - name: Scaffolding - cleanup
-        run: rm -rf build/cache/{stage,projects}
-        if: matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Package
-        run: script/dockerized.sh ${PLATFORM/-*} rake package
-        if: github.event_name == 'push' && matrix.platform != 'linux-clang-tidy' && matrix.platform != 'linux-clang-format'
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.platform }}-${{ matrix.lib-type }}-${{ matrix.architecture }}-${{ matrix.build-type }}
-          path: |
-            build/ci/*.tar.gz
-            build/*.out
-        if: (success() && github.event_name == 'push') || (failure() && (matrix.platform == 'linux-clang-tidy' || matrix.platform == 'linux-clang-format'))
-        continue-on-error: ${{ !startsWith(github.ref, 'refs/tags/') }}
-  macOS:
-    name: 🍏
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - macOS
-        lib-type:
-          - static
-          - shared
-        include:
-          - { platform: iOS, lib-type: static }
-          - { platform: tvOS, lib-type: static }
-    env:
-      HOST: ${{ github.job }}
-      PLATFORM: ${{ matrix.platform }}
-      LIB_TYPE: ${{ matrix.lib-type }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
-      - name: Select xcode
-        run: sudo xcode-select -s '/Applications/Xcode_12.app'
-      - name: Install dependencies
-        run: while ! brew install doxygen graphviz; do sleep 1; done
-      - name: CMake
-        run: rake cmake
-      - name: Build
-        run: rake build
-      - name: Test
-        run: rake test
-        if: matrix.platform == 'macOS'
-      - name: Documentation
-        run: rake doc
-      - name: Scaffolding - install
-        run: rake install[~/stage]
-      - name: Scaffolding - new
-        run: rake new
-      - name: Scaffolding - build
-        run: |
-          cd ~/projects/UrhoApp
-          rake URHO3D_HOME=~/stage/usr/local
-      - name: Scaffolding - test
-        run: |
-          cd ~/projects/UrhoApp
-          rake test
-        if: matrix.platform == 'macOS'
-      - name: Scaffolding - cleanup
-        run: rm -rf ~/{stage,projects}
-      - name: Package
-        run: rake package
-        if: github.event_name == 'push'
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.platform }}-${{ matrix.lib-type }}-all-rel
-          path: build/ci/*.tar.gz
-        if: github.event_name == 'push'
-  windows:
-    name: 🔲
+
+  # Идентификатор job
+  # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_id
+  windows-VS:
+
+    # Отображаемое имя job 
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idname
+    name: 🔲 VS
+
+    # Будет запущен на виртуальной машине с последней версией Windows
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    # Установленный софт: https://github.com/actions/virtual-environments#available-environments
     runs-on: windows-latest
+
+    # При помощи матриц минимизируем код данного workflow
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
     strategy:
-      fail-fast: false
+      # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
       matrix:
-        platform:
-          - win-vs
-          - win-gcc
-        lib-type:
-          - static
-          - shared
-        graphics-api:
-          - DX11
-          - DX9
-          - OpenGL
-    env:
-      HOST: ${{ github.job }}
-      PLATFORM: ${{ matrix.platform }}
-      LIB_TYPE: ${{ matrix.lib-type }}
-      GRAPHICS_API: ${{ matrix.graphics-api }}
+        # Переменная CMAKE_GENERATOR_PLATFORM будет иметь значения Win32 и x64
+        # https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2016%202019.html#platform-selection
+        CMAKE_GENERATOR_PLATFORM: [Win32, x64]
+        # Переменная config будет иметь значения Debug и Release
+        # Сборка проекта: https://cmake.org/cmake/help/latest/manual/cmake.1.html#build-a-project
+        config: [Debug, Release]
+
+    # Последовательность задач
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
-      - name: Install dependencies
-        run: |
-          # Temporary use old version of Doxygen https://github.com/urho3d/Urho3D/issues/2757
-          do { choco install --no-progress doxygen.install --version 1.8.20 } until ($?)
-          do { choco install --no-progress graphviz.portable } until ($?)
-      - name: CMake
-        run: rake cmake
-      - name: Build
-        run: rake build
-      - name: Test
-        run: rake test
-        if: matrix.graphics-api != 'OpenGL'
-      - name: Documentation
-        run: rake doc
-      - name: Scaffolding - install
-        run: rake install
-      - name: Scaffolding - new
-        run: rake new
-      - name: Scaffolding - build
-        run: |
-          cd ~/projects/UrhoApp
-          rake
-      - name: Scaffolding - test
-        run: |
-          cd ~/projects/UrhoApp
-          rake test
-        if: matrix.graphics-api != 'OpenGL'
-      - name: Scaffolding - cleanup
-        run: rm -r -fo $env:ProgramFiles/Urho3D, ~/Projects
-      - name: Package
-        run: rake package
-        if: github.event_name == 'push'
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.platform }}-${{ matrix.lib-type }}-64-${{ matrix.graphics-api }}-rel
-          path: build/ci/*.zip
-        if: github.event_name == 'push'
+    - name: Работаем # Отображаемое имя step
+      run: |
+        # Скачиваем текущий репозиторий в папку dviglo-repo
+        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        # Показываем версию CMake
+        cmake --version
+        # Создаём проект в папке dviglo-build
+        # Visual Studio Generators: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#id5
+        cmake dviglo-repo -B dviglo-build -G "Visual Studio 16 2019" -A ${{matrix.CMAKE_GENERATOR_PLATFORM}}
+        # Компилируем
+        cmake --build dviglo-build --config ${{matrix.config}}
 
-...
+  windows-mingw-w64:
 
-# vi: set ts=2 sw=2 expandtab:
+    name: 🔲 mingw-w64
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        bits: [32, 64]
+        # Переменная CMAKE_BUILD_TYPE будет иметь значения Debug и Release
+        # https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html
+        CMAKE_BUILD_TYPE: [Debug, Release]
+
+    steps:
+    - name: Работаем
+      shell: cmd
+      run: |
+        set "PATH=c:\msys64\mingw${{matrix.bits}}\bin;%PATH%"
+        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        cmake --version
+        g++ --version
+        cmake dviglo-repo -B dviglo-build -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=${{matrix.cmake_build_type}}
+        cmake --build dviglo-build
+
+  linux-GCC:
+
+    name: 🐧 GCC
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        CMAKE_BUILD_TYPE: [Debug, Release]
+        URHO3D_64BIT: ["", "-D URHO3D_64BIT=1"]
+
+    steps:
+
+    - name: Устанавливаем софт
+      run: |
+        # Приложение Doxygen генерирует документацию
+        sudo apt-get install -y doxygen
+        # Устанавливаем библиотеки, необходимые для компиляции движка
+        sudo apt-get install freeglut3-dev
+
+    - name: Работаем
+      run: |
+        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        cmake --version
+        g++ --version
+        cmake dviglo-repo -B dviglo-build -D CMAKE_BUILD_TYPE=${{matrix.CMAKE_BUILD_TYPE}} ${{matrix.URHO3D_64BIT}}
+        cmake --build dviglo-build
+
+  linux-Clang:
+
+    name: 🐧 Clang
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        CMAKE_BUILD_TYPE: [Debug, Release]
+        URHO3D_64BIT: ["", "-D URHO3D_64BIT=1"]
+
+    steps:
+
+    - name: Устанавливаем софт
+      run: |
+        sudo apt-get install -y doxygen
+        sudo apt-get install freeglut3-dev
+
+    - name: Работаем
+      run: |
+        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        cmake --version
+        export CC=clang
+        export CXX=clang++
+        clang++ --version
+        cmake dviglo-repo -B dviglo-build -D CMAKE_BUILD_TYPE=${{matrix.CMAKE_BUILD_TYPE}} ${{matrix.URHO3D_64BIT}}
+        cmake --build dviglo-build

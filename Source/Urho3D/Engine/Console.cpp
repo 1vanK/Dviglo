@@ -5,7 +5,7 @@
 #include "../Precompiled.h"
 
 #include "../Core/Context.h"
-#include "../Base/Algorithm.h"
+#include <dviglo/base/algorithm.h>
 #include "../Core/CoreEvents.h"
 #include "../Engine/Console.h"
 #include "../Engine/EngineEvents.h"

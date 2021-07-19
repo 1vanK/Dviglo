@@ -10,7 +10,7 @@
 #include <Urho3D/Urho3D.h>
 #endif
 
-#include "../Base/Iter.h"
+#include <dviglo/base/iter.h>
 #include "../Container/Swap.h"
 
 namespace Dviglo
