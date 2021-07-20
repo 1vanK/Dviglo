@@ -3441,6 +3441,8 @@ In your update function, move the controlled node using \ref SplinePath::Move "M
 
 \section Tools_AssetImporter AssetImporter
 
+TODO: Убрать упоминание Assimp
+
 Loads various 3D formats supported by Open Asset Import Library (http://assimp.sourceforge.net/) and saves Urho3D model, animation, material and scene files out of them. For the list of supported formats, look at http://assimp.sourceforge.net/main_features_formats.html.
 
 An alternative export path for Blender is to use the Urho3D add-on (https://github.com/reattiva/Urho3D-Blender).

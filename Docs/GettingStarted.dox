@@ -762,17 +762,14 @@ The %Context provides the following functionality (described in detail on their 
 
 The third-party libraries used by Urho3D and their purposes are:
 
-- AngelScript: scripting language implementation
 - Bullet: physics simulation implementation
 - Civetweb: HTTP requests, use could be expanded to also provide an embedded web server
 - FreeType: font rendering
 - GLEW: OpenGL extensions handling
 - SLikeNet: UDP networking
 - libcpuid: CPU properties detection
-- Lua, LuaJIT, tolua+: Lua scripting implementation and bindings
 - LZ4: data compression for package files
 - MojoShader: HLSL shader reflection after compiling
-- Open Asset Import Library: reading various 3D file formats
 - pugixml: parsing XML files
 - Recast/Detour: navigation mesh and pathfinding implementation
 - SDL: window and OpenGL context creation, input and sound output

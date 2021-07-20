@@ -43,7 +43,7 @@ jobs:
     - name: Работаем # Отображаемое имя step
       run: |
         # Скачиваем текущий репозиторий в папку dviglo-repo
-        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        git clone https://github.com/${{github.repository}} dviglo-repo
         # Показываем версию CMake
         cmake --version
         # Создаём проект в папке dviglo-build
@@ -69,7 +69,7 @@ jobs:
       shell: cmd
       run: |
         set "PATH=c:\msys64\mingw${{matrix.bits}}\bin;%PATH%"
-        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        git clone https://github.com/${{github.repository}} dviglo-repo
         cmake --version
         g++ --version
         cmake dviglo-repo -B dviglo-build -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=${{matrix.cmake_build_type}}
@@ -96,7 +96,7 @@ jobs:
 
     - name: Работаем
       run: |
-        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        git clone https://github.com/${{github.repository}} dviglo-repo
         cmake --version
         g++ --version
         cmake dviglo-repo -B dviglo-build -D CMAKE_BUILD_TYPE=${{matrix.CMAKE_BUILD_TYPE}} ${{matrix.URHO3D_64BIT}}
@@ -121,7 +121,7 @@ jobs:
 
     - name: Работаем
       run: |
-        git clone https://github.com/Dviglo/Dviglo dviglo-repo
+        git clone https://github.com/${{github.repository}} dviglo-repo
         cmake --version
         export CC=clang
         export CXX=clang++
